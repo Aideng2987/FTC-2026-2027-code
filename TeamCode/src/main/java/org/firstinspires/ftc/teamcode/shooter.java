@@ -29,7 +29,7 @@ public class shooter extends LinearOpMode {
         while (opModeIsActive()) {
             // Left Trigger -> Intake IN (positive power)
             // Otherwise nothing happens
-            double intakeIn = gamepad1.left_trigger;
+            double intakeIn = gamepad1.right_trigger;
 
             if (intakeIn > 0.1) {
                 shooterMotor.setPower(intakeIn); // Spins when trigger is pulled

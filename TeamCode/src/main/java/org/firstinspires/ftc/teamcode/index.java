@@ -13,7 +13,7 @@ public class index extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Map hardware to configured device name in REV Control Hub
-        indexMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
+        indexMotor = hardwareMap.get(DcMotor.class, "indexMotor");
 
         // Set direction (REVERSE if the intake runs backwards relative to controller input)
         indexMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -29,7 +29,7 @@ public class index extends LinearOpMode {
         while (opModeIsActive()) {
             // Left Trigger -> Intake IN (positive power)
             // Otherwise nothing happens
-            double intakeIn = gamepad1.left_trigger;
+            double intakeIn = gamepad1.a;
 
             if (intakeIn > 0.1) {
                 indexMotor.setPower(intakeIn); // Spins when trigger is pulled
