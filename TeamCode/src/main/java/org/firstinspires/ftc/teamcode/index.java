@@ -29,7 +29,7 @@ public class index extends LinearOpMode {
         while (opModeIsActive()) {
             // Left Trigger -> Intake IN (positive power)
             // Otherwise nothing happens
-            double intakeIn = gamepad1.a;
+            double intakeIn = gamepad1.right_trigger;
 
             if (intakeIn > 0.1) {
                 indexMotor.setPower(intakeIn); // Spins when trigger is pulled
