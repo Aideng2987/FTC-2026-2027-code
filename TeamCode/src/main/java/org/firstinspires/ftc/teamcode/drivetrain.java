@@ -40,7 +40,7 @@ public class drivetrain extends LinearOpMode {
 
         // Run until the driver presses STOP
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y; // Y stick value is reversed by default
+            double y = gamepad1.left_stick_y; // Y stick value is reversed by default
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
 
