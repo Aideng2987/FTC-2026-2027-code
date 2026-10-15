@@ -52,10 +52,10 @@ public class drivetrain extends LinearOpMode {
             // back right set power rx * -100
 
             // Mecanum kinematic formulas
-            double frontLeftPower = y + x ;
-            double backLeftPower = y - x ;
-            double frontRightPower = y - x ;
-            double backRightPower = y + x ;
+            double frontLeftPower = (y + x)/2 ;
+            double backLeftPower = (y - x)/2 ;
+            double frontRightPower = (y - x)/2 ;
+            double backRightPower = (y + x)/2 ;
             if(Math.abs(frontLeftPower) > 1){
                 if(frontLeftPower < 0){
                     frontLeftPower= -1;
