@@ -38,10 +38,10 @@ public class drivetrain extends LinearOpMode {
         // Wait for the driver to press PLAY
         waitForStart();
 
-        // Run until the driver presses STOP
+        // Run until the drAiver presses STOP
         while (opModeIsActive()) {
-            double y = gamepad1.left_stick_y; // Y stick value is reversed by default
-            double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+            double y = -gamepad1.left_stick_y; // Y stick value is reversed by default
+            double x = gamepad1.left_stick_x; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
 
             // -1 to 1
