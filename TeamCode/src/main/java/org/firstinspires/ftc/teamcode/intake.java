@@ -14,6 +14,8 @@ public class intake extends LinearOpMode {
     public void runOpMode() {
         // Map hardware to configured device name in REV Control Hub
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
+        //servo
+
 
         // Set direction (REVERSE if the intake runs backwards relative to controller input)
         intakeMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -39,6 +41,8 @@ public class intake extends LinearOpMode {
 
             telemetry.addData("Intake Power", intakeMotor.getPower());
             telemetry.update();
+
+            // add reverse for each motor
         }
     }
 }

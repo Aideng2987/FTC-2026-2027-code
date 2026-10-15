@@ -38,41 +38,51 @@ public class drivetrain extends LinearOpMode {
         // Wait for the driver to press PLAY
         waitForStart();
 
-
         // Run until the driver presses STOP
         while (opModeIsActive()) {
             double y = -gamepad1.left_stick_y; // Y stick value is reversed by default
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
 
+            // -1 to 1
+            // rotation rx = 1
+            // front left set power rx * 100
+            // back left set power rx * 100
+            // front right set power rx * -100
+            // back right set power rx * -100
 
             // Mecanum kinematic formulas
-            double frontLeftPower = y + x + rx;
-            double backLeftPower = y - x + rx;
-            double frontRightPower = y - x - rx;
-            double backRightPower = y + x - rx;
-
-
-            // Denominator is the largest motor power (absolute value) or 1.0
-            double max = Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower));
-            max = Math.max(max, Math.abs(frontRightPower));
-            max = Math.max(max, Math.abs(backRightPower));
-
-
-            if (max > 1.0) {
-                frontLeftPower /= max;
-                backLeftPower /= max;
-                frontRightPower /= max;
-                backRightPower /= max;
+            double frontLeftPower = y + x ;
+            double backLeftPower = y - x ;
+            double frontRightPower = y - x ;
+            double backRightPower = y + x ;
+            if(Math.abs(frontLeftPower) > 1){
+                if(frontLeftPower < 0){
+                    frontLeftPower= -1;
+                }
+                else{
+                    frontLeftPower = 1;
+                }
+                frontLeftPower = backRightPower;
+            }
+            if(Math.abs(backLeftPower) > 1){
+                if(backLeftPower < 0){
+                    backLeftPower = -1;
+                }
+                else{
+                    backLeftPower = 1;
+                }
+                backLeftPower = frontRightPower;
             }
 
-
+            // if motor power >= 100
+            // make motor power = 100
             // Send calculated power to wheels
+
             frontLeft.setPower(frontLeftPower);
             backLeft.setPower(backLeftPower);
             frontRight.setPower(frontRightPower);
             backRight.setPower(backRightPower);
-
 
             telemetry.addData("Drive Vectors", "Y: %.2f, X: %.2f, RX: %.2f", y, x, rx);
             telemetry.update();

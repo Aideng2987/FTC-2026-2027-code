@@ -39,6 +39,8 @@ public class index extends LinearOpMode {
 
             telemetry.addData("Index Power", indexMotor.getPower());
             telemetry.update();
+
+            //reverse
         }
     }
 }
