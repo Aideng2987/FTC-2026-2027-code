@@ -33,7 +33,7 @@ public class drivetrain extends LinearOpMode {
 
         telemetry.addData("Status", "Mecanum Drive Initialized");
         telemetry.update();
-        ;
+
 
         // Wait for the driver to press PLAY
         waitForStart();
@@ -52,28 +52,40 @@ public class drivetrain extends LinearOpMode {
             // back right set power rx * -100
 
             // Mecanum kinematic formulas
-            double frontLeftPower = (y + x)/2 ;
-            double backLeftPower = (y - x)/2 ;
-            double frontRightPower = (y - x)/2 ;
-            double backRightPower = (y + x)/2 ;
-            if(Math.abs(frontLeftPower) > 1){
-                if(frontLeftPower < 0){
-                    frontLeftPower= -1;
-                }
-                else{
-                    frontLeftPower = 1;
-                }
-                frontLeftPower = backRightPower;
+            double frontLeftPower;
+            double backLeftPower;
+            double frontRightPower;
+            double backRightPower;
+
+            if(rx > 0.3 && y > 0.2 x > 0.2){
+                frontLeftPower = -(y + x)*rx/1.5;
+                backRightPower = (y+x)*rx / 1.25;
+                frontRightPower = (y - x) ;
+                backLeftPower = (y - x) ;
             }
-            if(Math.abs(backLeftPower) > 1){
-                if(backLeftPower < 0){
-                    backLeftPower = -1;
-                }
-                else{
-                    backLeftPower = 1;
-                }
-                backLeftPower = frontRightPower;
+            else if(rx < -0.3 && y > 0.2 x > 0.2){
+                frontLeftPower = -(y + x);
+                backRightPower = -(y+x);
+                frontRightPower = (y - x)*rx/1.5;
+                backLeftPower = (y - x)*rx/1.25 ;
             }
+            else{
+            frontLeftPower = -(y + x) ;
+            backRightPower = -(y + x) ;
+            frontRightPower = (y - x) ;
+            backLeftPower = (y - x) ;}
+
+
+            //This code just makes sure there  is a maximum value for our wheels
+            double m1 = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
+            double m2 = Math.max(Math.abs(backLeftPower), Math.abs(backRightPower));
+            double normalize = Math.max(m1,m2);
+
+            if(normalize > 1){
+            frontLeftPower /= normalize;
+            backRightPower / = normalize;
+            frontRightPower /= normalize;
+            backLeftPower /= normalize;}
 
             // if motor power >= 100
             // make motor power = 100
@@ -84,7 +96,11 @@ public class drivetrain extends LinearOpMode {
             frontRight.setPower(frontRightPower);
             backRight.setPower(backRightPower);
 
+
+            //This is basically a print statement easier for testing the robot
             telemetry.addData("Drive Vectors", "Y: %.2f, X: %.2f, RX: %.2f", y, x, rx);
+            telemetry.addData("Motor Powers", "FrontL: %.2f, FrontR: %.2f, BackL: %.2f, BackR: %.2f",
+                    frontLeftPower, frontRightPower, backLeftPower, backRightPower);
             telemetry.update();
         }
     }
