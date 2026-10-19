@@ -57,17 +57,23 @@ public class drivetrain extends LinearOpMode {
             double frontRightPower;
             double backRightPower;
 
-            if(rx > 0.3 && y > 0.2 x > 0.2){
+            if(rx > 0.3 && y > 0.2 && x > 0.2){
                 frontLeftPower = -(y + x)*rx/1.5;
                 backRightPower = (y+x)*rx / 1.25;
                 frontRightPower = (y - x) ;
                 backLeftPower = (y - x) ;
             }
-            else if(rx < -0.3 && y > 0.2 x > 0.2){
+            else if(rx < -0.3 && y > 0.2 && x > 0.2){
                 frontLeftPower = -(y + x);
                 backRightPower = -(y+x);
                 frontRightPower = (y - x)*rx/1.5;
                 backLeftPower = (y - x)*rx/1.25 ;
+            }
+            else if( rx != 0 && y == 0 && x==0){
+                frontLeftPower = -rx;
+                backLeftPower = rx;
+                frontRightPower = -rx;
+                backRightPower = rx;
             }
             else{
             frontLeftPower = -(y + x) ;
@@ -80,7 +86,6 @@ public class drivetrain extends LinearOpMode {
             double m1 = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
             double m2 = Math.max(Math.abs(backLeftPower), Math.abs(backRightPower));
             double normalize = Math.max(m1,m2);
-
             if(normalize > 1){
             frontLeftPower /= normalize;
             backRightPower / = normalize;
