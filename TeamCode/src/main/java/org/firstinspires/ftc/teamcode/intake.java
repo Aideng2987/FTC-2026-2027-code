@@ -27,11 +27,11 @@ public class intake extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-
+/*
         while (opModeIsActive()) {
             // Left Trigger -> Intake IN (positive power)
             // Otherwise nothing happens
-            double intakeIn = gamepad1.left_trigger;
+            double intakeIn;
 
             if (intakeIn > 0.1) {
                 intakeMotor.setPower(intakeIn); // Spins when trigger is pulled
@@ -43,7 +43,7 @@ public class intake extends LinearOpMode {
             telemetry.update();
 
             // add reverse for each motor
-        }
+        }*/
     }
 }
 
