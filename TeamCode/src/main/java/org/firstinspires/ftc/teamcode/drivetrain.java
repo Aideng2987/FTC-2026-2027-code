@@ -55,17 +55,17 @@ public class drivetrain extends LinearOpMode {
             double frontLeftPower;
             double backLeftPower;
             double frontRightPower;
-            double backRightPower;
+            double backRightPower;/*
 
             if(rx > 0.3 && y > 0.2 && x > 0.2){
-                frontLeftPower = -(y + x)*rx/1.5;
+                frontLeftPower = (y + x)*rx/1.5;
                 backRightPower = (y+x)*rx / 1.25;
                 frontRightPower = (y - x) ;
                 backLeftPower = (y - x) ;
             }
             else if(rx < -0.3 && y > 0.2 && x > 0.2){
-                frontLeftPower = -(y + x);
-                backRightPower = -(y+x);
+                frontLeftPower = (y + x);
+                backRightPower = (y+x);
                 frontRightPower = (y - x)*rx/1.5;
                 backLeftPower = (y - x)*rx/1.25 ;
             }
@@ -74,21 +74,22 @@ public class drivetrain extends LinearOpMode {
                 backLeftPower = rx;
                 frontRightPower = -rx;
                 backRightPower = rx;
-            }
-            else{
-            frontLeftPower = -(y + x) ;
-            backRightPower = -(y + x) ;
-            frontRightPower = (y - x) ;
-            backLeftPower = (y - x) ;}
+            }*/
+            //else{
+            frontLeftPower = (y+x);
+            backRightPower = (y+x) ;
+            frontRightPower = (y-x) ;
+            backLeftPower = (y-x) ;//}
 
 
             //This code just makes sure there  is a maximum value for our wheels
+
             double m1 = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
             double m2 = Math.max(Math.abs(backLeftPower), Math.abs(backRightPower));
             double normalize = Math.max(m1,m2);
             if(normalize > 1){
             frontLeftPower /= normalize;
-            backRightPower / = normalize;
+            backRightPower /=normalize;
             frontRightPower /= normalize;
             backLeftPower /= normalize;}
 
@@ -97,15 +98,16 @@ public class drivetrain extends LinearOpMode {
             // Send calculated power to wheels
 
             frontLeft.setPower(frontLeftPower);
-            backLeft.setPower(backLeftPower);
-            frontRight.setPower(frontRightPower);
-            backRight.setPower(backRightPower);
+            backLeft.setPower(-backLeftPower);
+            frontRight.setPower(-frontRightPower);
+            backRight.setPower(-backRightPower);
 
 
             //This is basically a print statement easier for testing the robot
             telemetry.addData("Drive Vectors", "Y: %.2f, X: %.2f, RX: %.2f", y, x, rx);
             telemetry.addData("Motor Powers", "FrontL: %.2f, FrontR: %.2f, BackL: %.2f, BackR: %.2f",
-                    frontLeftPower, frontRightPower, backLeftPower, backRightPower);
+                    frontLeftPower, frontRightPower, backLeftPower,
+                    backRightPower);
             telemetry.update();
         }
     }
