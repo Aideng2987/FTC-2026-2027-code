@@ -37,7 +37,7 @@ public class drivetrain extends LinearOpMode {
         // Wait for the driver to press PLAY
         waitForStart();
 
-        // Run until the drAiver presses STOP
+        // Run until the driver presses STOP
         while (opModeIsActive()) {
             double y = -gamepad1.left_stick_y; // Y stick value is reversed by default
             double x = gamepad1.left_stick_x; // Counteract imperfect strafing
@@ -74,10 +74,10 @@ public class drivetrain extends LinearOpMode {
                 backRightPower = rx;
             }
             else{
-            frontLeftPower = (y-x);
-            backRightPower = (y-x) ;
-            frontRightPower = (y+x) ;
-            backLeftPower = (y+x) ;}
+            frontLeftPower = (y+x);
+            backRightPower = (y+x);
+            frontRightPower = (y-x);
+            backLeftPower = (y-x) ;
 
 
             //This code just makes sure there  is a maximum value for our wheels
@@ -94,10 +94,10 @@ public class drivetrain extends LinearOpMode {
             // make motor power = 100
             // Send calculated power to wheels
 
-            frontLeft.setPower(-frontLeftPower);
-            backLeft.setPower(backLeftPower);
-            frontRight.setPower(frontRightPower);
-            backRight.setPower(backRightPower);
+            frontLeft.setPower(frontLeftPower);
+            backLeft.setPower(-backLeftPower);
+            frontRight.setPower(-frontRightPower);
+            backRight.setPower(-backRightPower);
 
 
             //This is basically a print statement easier for testing the robot
@@ -108,4 +108,5 @@ public class drivetrain extends LinearOpMode {
             telemetry.update();
         }
     }
+}
 }
