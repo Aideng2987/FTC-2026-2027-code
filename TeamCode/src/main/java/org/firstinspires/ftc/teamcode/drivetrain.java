@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name = "Mecanum Drive Control", group = "Drivetrain")
 public class drivetrain extends LinearOpMode {
 
-
     @Override
     public void runOpMode() {
         // Initialize motors from the hardware map
@@ -52,38 +51,36 @@ public class drivetrain extends LinearOpMode {
             // back right set power rx * -100
 
             // Mecanum kinematic formulas
-            double frontLeftPower;
-            double backLeftPower;
-            double frontRightPower;
-            double backRightPower;/*
+            double frontLeftPower ;
+            double backLeftPower ;
+            double frontRightPower ;
+            double backRightPower ;
 
             if(rx > 0.3 && y > 0.2 && x > 0.2){
-                frontLeftPower = (y + x)*rx/1.5;
-                backRightPower = (y+x)*rx / 1.25;
-                frontRightPower = (y - x) ;
-                backLeftPower = (y - x) ;
+                frontLeftPower = (y - x)*rx/1.4;
+                backRightPower = (y-x)*rx / 1.2;
+                frontRightPower = (y + x) ;
+                backLeftPower = (y + x) ;
             }
             else if(rx < -0.3 && y > 0.2 && x > 0.2){
-                frontLeftPower = (y + x);
-                backRightPower = (y+x);
-                frontRightPower = (y - x)*rx/1.5;
-                backLeftPower = (y - x)*rx/1.25 ;
-            }
-            else if( rx != 0 && y == 0 && x==0){
+                frontLeftPower = (y - x);
+                backRightPower = (y-x);
+                frontRightPower = (y + x)*rx/1.4;
+                backLeftPower = (y + x)*rx/1.2 ;
+            } else if( rx != 0 && y == 0 && x==0){
                 frontLeftPower = -rx;
                 backLeftPower = rx;
                 frontRightPower = -rx;
                 backRightPower = rx;
-            }*/
-            //else{
-            frontLeftPower = (y+x);
-            backRightPower = (y+x) ;
-            frontRightPower = (y-x) ;
-            backLeftPower = (y-x) ;//}
+            }
+            else{
+            frontLeftPower = (y-x);
+            backRightPower = (y-x) ;
+            frontRightPower = (y+x) ;
+            backLeftPower = (y+x) ;}
 
 
             //This code just makes sure there  is a maximum value for our wheels
-
             double m1 = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
             double m2 = Math.max(Math.abs(backLeftPower), Math.abs(backRightPower));
             double normalize = Math.max(m1,m2);
@@ -97,10 +94,10 @@ public class drivetrain extends LinearOpMode {
             // make motor power = 100
             // Send calculated power to wheels
 
-            frontLeft.setPower(frontLeftPower);
-            backLeft.setPower(-backLeftPower);
-            frontRight.setPower(-frontRightPower);
-            backRight.setPower(-backRightPower);
+            frontLeft.setPower(-frontLeftPower);
+            backLeft.setPower(backLeftPower);
+            frontRight.setPower(frontRightPower);
+            backRight.setPower(backRightPower);
 
 
             //This is basically a print statement easier for testing the robot
