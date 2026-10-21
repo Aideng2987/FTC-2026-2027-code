@@ -56,29 +56,10 @@ public class drivetrain extends LinearOpMode {
             double frontRightPower ;
             double backRightPower ;
 
-            if(rx > 0.3 && y > 0.2 && x > 0.2){
-                frontLeftPower = (y - x)*rx/1.4;
-                backRightPower = (y-x)*rx / 1.2;
-                frontRightPower = (y + x) ;
-                backLeftPower = (y + x) ;
-            }
-            else if(rx < -0.3 && y > 0.2 && x > 0.2){
-                frontLeftPower = (y - x);
-                backRightPower = (y-x);
-                frontRightPower = (y + x)*rx/1.4;
-                backLeftPower = (y + x)*rx/1.2 ;
-            } else if( rx != 0 && y == 0 && x==0){
-                frontLeftPower = -rx;
-                backLeftPower = rx;
-                frontRightPower = -rx;
-                backRightPower = rx;
-            }
-            else{
-            frontLeftPower = (y+x);
-            backRightPower = (y+x);
-            frontRightPower = (y-x);
-            backLeftPower = (y-x) ;
-
+            frontLeftPower = (y+x) + rx;
+            backRightPower = (y+x) + rx;
+            frontRightPower = (y-x) - rx;
+            backLeftPower = (y-x) - rx ;
 
             //This code just makes sure there  is a maximum value for our wheels
             double m1 = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
@@ -105,8 +86,10 @@ public class drivetrain extends LinearOpMode {
             telemetry.addData("Motor Powers", "FrontL: %.2f, FrontR: %.2f, BackL: %.2f, BackR: %.2f",
                     frontLeftPower, frontRightPower, backLeftPower,
                     backRightPower);
+            telemetry.addData("other buttons", "LT" , gamepad1.left_trigger_pressed);
+
             telemetry.update();
         }
     }
 }
-}
+
