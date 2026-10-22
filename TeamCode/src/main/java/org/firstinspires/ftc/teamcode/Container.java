@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
+
 
 public abstract class Container extends LinearOpMode {
     // Drivetrain hardware
@@ -13,8 +13,8 @@ public abstract class Container extends LinearOpMode {
 
     // Intake hardware
     public DcMotor intakeMotor;
-    public Servo leftIntakeServo;
-    public Servo rightIntakeServo;
+    //public Servo leftIntakeServo;
+    //public Servo rightIntakeServo;
     public DcMotor shooterMotor = null;
 
     // Call this inside runOpMode() in your TeleOp/Auto classes
@@ -37,14 +37,14 @@ public abstract class Container extends LinearOpMode {
 
         //  Intake Initialization
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
-        leftIntakeServo = hardwareMap.get(Servo.class, "leftIntakeServo");
-        rightIntakeServo = hardwareMap.get(Servo.class, "rightIntakeServo");
+        //leftIntakeServo = hardwareMap.get(Servo.class, "leftIntakeServo");
+        //rightIntakeServo = hardwareMap.get(Servo.class, "rightIntakeServo");
 
         intakeMotor.setDirection(DcMotor.Direction.FORWARD);
-        leftIntakeServo.setDirection(Servo.Direction.REVERSE);
-        rightIntakeServo.setDirection(Servo.Direction.REVERSE);
+        //leftIntakeServo.setDirection(Servo.Direction.REVERSE);
+        //rightIntakeServo.setDirection(Servo.Direction.REVERSE);
 
-        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         shooterMotor = hardwareMap.get(DcMotor.class, "shooterMotor");
 
@@ -76,13 +76,29 @@ public abstract class Container extends LinearOpMode {
         frontLeft.setPower(frontLeftPower);
         backLeft.setPower(backLeftPower);
         frontRight.setPower(frontRightPower);
-        backRight.setPower(backRightPower);
+        backRight.setPower(-backRightPower);
 
         telemetry.addData("Drive Vectors", "Y: %.2f, X: %.2f, RX: %.2f", y, x, rx);
         telemetry.addData("Motor Powers", "FL: %.2f, FR: %.2f, BL: %.2f, BR: %.2f",
                 frontLeftPower, frontRightPower, backLeftPower, backRightPower);
         telemetry.update();
     }
+    public void shoot(double shotPower){
+        if (shotPower > 0.1) {
+            shooterMotor.setPower(shotPower); // Spins when trigger is pulled
+        } else {
+            shooterMotor.setPower(0.0);      // Stops only when trigger is released
+        }
+    }
+    public void Intake(double takeIn){
+        if(takeIn > 0.1){
+            intakeMotor.setPower(takeIn);
+        }
+        else{
+            intakeMotor.setPower(0.0);
+        }
+    }
+
 
 
 }
