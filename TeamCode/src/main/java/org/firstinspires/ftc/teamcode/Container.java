@@ -49,11 +49,7 @@ public abstract class Container extends LinearOpMode {
         shooterMotor = hardwareMap.get(DcMotor.class, "shooterMotor");
 
         // Set direction (REVERSE if the intake runs backwards relative to controller input)
-        shooterMotor.setDirection(DcMotor.Direction.FORWARD);
-
-        // Set motor to brake when no power is applied
-        shooterMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        shooterMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void driveRobot(double y, double x, double rx) {

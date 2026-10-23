@@ -15,12 +15,13 @@ public class MainTeleOp extends Container {
 
         waitForStart();
 
+        //when opmode is active execute this
         while (opModeIsActive()) {
             // 2. Drive using the helper method in Container
             double y = -gamepad1.left_stick_y;
             double x = gamepad1.left_stick_x;
             double rx = gamepad1.right_stick_x;
-            driveRobot(y,x,rx);
+            driveRobot(y,x,rx); //Container class method
 
             // 3. Intake using the helper method in Container
             if (gamepad1.left_trigger > 0.1) {
@@ -30,6 +31,8 @@ public class MainTeleOp extends Container {
             } else {
                 Intake(0.0);
             }
+            telemetry.addData("dpad down", "left trigger" , gamepad1.dpad_down , gamepad1.left_trigger);
+
 
             // 4. Shooter using the helper method in Container
             if (gamepad1.right_trigger > 0.1) {
